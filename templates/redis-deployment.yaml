@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-redis
+  labels:
+    name: {{ .Release.Name }}-redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: {{ .Release.Name }}-redis
+  template:
+    metadata:
+      labels:
+        name: {{ .Release.Name }}-redis
+    spec:
+      restartPolicy: Always
+      containers:
+        - image: redis:latest
+          name: {{ .Release.Name }}-redis
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 6379

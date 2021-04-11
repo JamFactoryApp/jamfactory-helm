@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-backend
+  labels:
+    name: {{ .Release.Name }}-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: {{ .Release.Name }}-backend
+  template:
+    metadata:
+      labels:
+        name: {{ .Release.Name }}-backend
+    spec:
+      restartPolicy: Always
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - image: {{ .Values.backendImage.repository }}
+          name: {{ .Release.Name }}-backend
+          imagePullPolicy: {{ .Values.backendImage.pullPolicy }}
+          ports:
+            - containerPort: 3000
+          envFrom:
+            - configMapRef:
+                name: {{ .Release.Name }}-configmap
+          env:
+            - name: JAM_DATA_DIR
+              value: "/data"
+            - name: JAM_USE_HTTPS
+              value: "false"
+            - name: JAM_REDIS_ADDRESS
+              value: "{{ .Release.Name }}-redis:6379"
+            - name: JAM_SPOTIFY_ID
+              valueFrom:
+                secretKeyRef:
+                  key: spotify-id
+                  name: {{ .Release.Name }}-secrets
+            - name: JAM_SPOTIFY_SECRET
+              valueFrom:
+                secretKeyRef:
+                  key: spotify-secret
+                  name: {{ .Release.Name }}-secrets

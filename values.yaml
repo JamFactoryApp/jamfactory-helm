@@ -1,0 +1,25 @@
+jam:
+  clientAddress: "http://example.com"
+  spotifyCallbackURL: "http://example.com/api/v1/auth/callback"
+
+backendImage:
+  repository: registry.jole.dev/jamfactory/jamfactory/jamfactory-backend:latest
+  pullPolicy: IfNotPresent
+
+webImage:
+  repository: registry.jole.dev/jamfactory/jamfactory/jamfactory-web:latest
+  pullPolicy: IfNotPresent
+
+imagePullSecrets:
+  - name: regcred
+
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: "letsencrypt-staging"
+  host: example.com
+  tls:
+    - secretName: jamfactory-tls
+      hosts:
+        - example.com

@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-configmap
+  labels:
+    app: {{ .Release.Name }}
+data:
+  JAM_ENV: "PRODUCTION"
+  JAM_LOG_EVEL: "INFO"
+  JAM_CLIENT_ADDRESS: {{ .Values.jam.clientAddress }}
+  JAM_SPOTIFY_REDIRECT_URL: {{ .Values.jam.spotifyCallbackURL }}

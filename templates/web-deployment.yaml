@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-web
+  labels:
+    name: {{ .Release.Name }}-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: {{ .Release.Name }}-web
+  template:
+    metadata:
+      labels:
+        name: {{ .Release.Name }}-web
+    spec:
+      restartPolicy: Always
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - image: {{ .Values.webImage.repository }}
+          name: {{ .Release.Name }}-web
+          imagePullPolicy: {{ .Values.webImage.pullPolicy }}
+          ports:
+            - containerPort: 80
