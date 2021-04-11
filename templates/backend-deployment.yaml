@@ -25,6 +25,9 @@ spec:
           imagePullPolicy: {{ .Values.backendImage.pullPolicy }}
           ports:
             - containerPort: 3000
+          volumeMounts:
+            - mountPath: "/data"
+              name: {{ .Release.Name }}-pv
           envFrom:
             - configMapRef:
                 name: {{ .Release.Name }}-configmap
@@ -45,3 +48,7 @@ spec:
                 secretKeyRef:
                   key: spotify-secret
                   name: {{ .Release.Name }}-secrets
+      volumes:
+        - name: {{ .Release.Name }}-pv
+          persistentVolumeClaim:
+            claimName: {{ .Release.Name }}-pvc
