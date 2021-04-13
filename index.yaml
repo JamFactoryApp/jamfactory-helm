@@ -1,0 +1,15 @@
+apiVersion: v1
+entries:
+  jamfactory:
+  - apiVersion: v2
+    appVersion: "0.1"
+    created: "2021-04-13T19:44:04.493286356Z"
+    description: A Helm chart for JamFactory (https://github.com/JamFactoryApp).
+    digest: 8b437291dbb304aebb5660e1531dd0b41967af08d0b1366fde1b2ef76fc4f0eb
+    icon: https://raw.githubusercontent.com/JamFactoryApp/jamfactory-web/dev/src/assets/gopher.png
+    name: jamfactory
+    type: application
+    urls:
+    - https://github.com/JamFactoryApp/jamfactory-helm/releases/download/jamfactory-0.1.1/jamfactory-0.1.1.tgz
+    version: 0.1.1
+generated: "2021-04-13T19:44:04.493294456Z"
