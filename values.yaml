@@ -3,12 +3,12 @@ jam:
   spotifyCallbackURL: "https://example.com/api/v1/auth/callback"
 
 backendImage:
-  repository: registry.jole.dev/jamfactory/jamfactory/jamfactory-backend:latest
-  pullPolicy: IfNotPresent
+  repository: ghcr.io/jamfactoryapp/jamfactory-backend:latest
+  pullPolicy: Always
 
 webImage:
-  repository: registry.jole.dev/jamfactory/jamfactory/jamfactory-web:latest
-  pullPolicy: IfNotPresent
+  repository: ghcr.io/jamfactoryapp/jamfactory-web:latest
+  pullPolicy: Always
 
 imagePullSecrets:
   - name: regcred
